@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #box {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            border: 1px solid yellowgreen;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        #box1 {
+            width: 3200px;
+            height: 200px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        li {
+            float: left;
+        }
+
+        img {
+            width: 400px;
+            height: 200px;
+        }
+
+        .yuan {
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            margin: 0 140px;
+        }
+
+        span {
+            display: block;
+            float: left;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .sp {
+            background-color: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul id="box1">
+            <li><img src="./img/1.jpg" alt=""></li>
+            <li><img src="./img/2.jpg" alt=""></li>
+            <li><img src="./img/3.jpg" alt=""></li>
+            <li><img src="./img/4.jpg" alt=""></li>
+            <li><img src="./img/5.jpg" alt=""></li>
+
+        </ul>
+        <div class="yuan">
+            <span class="sp"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+    </div>
+
+    <script src='./js/水平匀速运动函数封装.js'></script>
+    <script>
+        var box = document.getElementById('box');
+        var box1 = document.getElementById('box1');
+        var spa = document.getElementsByTagName('span');
+        var n = 0;
+
+        fun();
+        function fun() {
+            for (var i = 0; i < spa.length; i++) {
+                spa[i].custom = i;
+                spa[i].onclick = function () {
+                    for (var j = 0; j < spa.length; j++) {
+                        spa[j].className = '';
+                    }
+                    this.className = 'sp';
+                    move(box1, 'left', 45, -400 * this.custom)
+                    n = this.custom;
+                }
+            }
+        }
+
+        var time = setInterval(fun1, 2200);
+        function fun1() {
+            n++;
+            if (n > spa.length - 1) {
+                n = 0;
+            }
+            for (var j = 0; j < spa.length; j++) {
+                spa[j].className = '';
+            }
+            spa[n].className = 'sp';
+            move(box1, 'left', 45, -400 * n)
+        }
+
+        box.onmouseover = function () {
+            clearInterval(time);
+        }
+        box.onmouseout = function () {
+            time = setInterval(fun1, 3500);
+        }
+    </script>
+</body>
+
+</html>
